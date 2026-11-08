@@ -10,12 +10,17 @@
         :root { --bg-color: #0f172a; --card-bg: #1e293b; --text-main: #f8fafc; --text-muted: #94a3b8; --accent: #d4af37; --accent-hover: #fbbf24; --border: #334155; }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-color); color: var(--text-main); margin: 0; padding: 20px; line-height: 1.5; -webkit-tap-highlight-color: transparent; }
         .container { max-width: 800px; margin: 0 auto; padding-bottom: 50px; }
-        header { text-align: center; margin-bottom: 30px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+        header { text-align: center; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
         h1 { font-family: 'Playfair Display', serif; font-size: 32px; color: var(--accent); margin: 0 0 10px 0; letter-spacing: 1px; }
-        .progress-container { background: var(--card-bg); border-radius: 20px; padding: 15px 20px; margin-bottom: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); position: sticky; top: 10px; z-index: 100; border: 1px solid var(--border); }
+        .progress-container { background: var(--card-bg); border-radius: 20px; padding: 15px 20px; margin-bottom: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); position: sticky; top: 10px; z-index: 100; border: 1px solid var(--border); }
         .progress-text { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 8px; font-weight: 500; }
         .progress-bar-bg { background: #334155; height: 8px; border-radius: 4px; overflow: hidden; }
         .progress-bar-fill { background: linear-gradient(90deg, #d4af37, #fbbf24); height: 100%; width: 0%; transition: width 0.4s ease; }
+        
+        /* Легенда сердечек */
+        .legend { display: flex; justify-content: center; gap: 10px; font-size: 12px; color: var(--text-muted); margin-bottom: 25px; flex-wrap: wrap; }
+        .legend span { background: var(--card-bg); padding: 5px 10px; border-radius: 10px; border: 1px solid var(--border); }
+
         details { background: var(--card-bg); margin-bottom: 12px; border-radius: 12px; border: 1px solid var(--border); overflow: hidden; transition: all 0.3s; }
         summary { padding: 18px 20px; cursor: pointer; font-weight: 600; font-size: 16px; color: var(--text-main); list-style: none; display: flex; justify-content: space-between; align-items: center; transition: background 0.2s; }
         summary:hover { background: rgba(255,255,255,0.05); }
@@ -23,23 +28,30 @@
         summary::after { content: '+'; font-size: 22px; color: var(--accent); font-weight: 300; transition: transform 0.3s; }
         details[open] summary::after { transform: rotate(45deg); }
         .book-list { padding: 10px 20px 20px; border-top: 1px solid var(--border); }
+        
         .book-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); transition: opacity 0.2s; }
         .book-item:last-child { border-bottom: none; }
         
-        /* Квадратик (Прочитано) */
-        .cb { appearance: none; -webkit-appearance: none; width: 24px; height: 24px; border: 2px solid var(--text-muted); border-radius: 6px; margin-right: 15px; cursor: pointer; flex-shrink: 0; transition: all 0.2s; position: relative; }
-        .cb:checked { background-color: var(--accent); border-color: var(--accent); }
-        .cb:checked::after { content: '✓'; position: absolute; color: var(--bg-color); font-size: 16px; font-weight: bold; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+        input[type="checkbox"] { appearance: none; -webkit-appearance: none; width: 24px; height: 24px; border: 2px solid var(--text-muted); border-radius: 6px; margin-right: 15px; cursor: pointer; flex-shrink: 0; transition: all 0.2s; position: relative; }
+        input[type="checkbox"]:checked { background-color: var(--accent); border-color: var(--accent); }
+        input[type="checkbox"]:checked::after { content: '✓'; position: absolute; color: var(--bg-color); font-size: 16px; font-weight: bold; top: 50%; left: 50%; transform: translate(-50%, -50%); }
         
-        .book-text { cursor: pointer; font-size: 15px; color: var(--text-muted); flex: 1; user-select: none; padding-right: 10px; }
+        label { cursor: pointer; font-size: 15px; color: var(--text-muted); flex: 1; user-select: none; padding-right: 10px; }
         .author { color: var(--text-main); font-weight: 500; transition: color 0.2s; }
-        .cb:checked ~ .book-text { text-decoration: line-through; opacity: 0.5; }
-        .cb:checked ~ .book-text .author { color: var(--text-muted); }
+        
+        input[type="checkbox"]:checked + label { text-decoration: line-through; opacity: 0.5; }
+        input[type="checkbox"]:checked + label .author { color: var(--text-muted); }
 
-        /* Кнопка Сердечко */
-        .heart-btn { background: transparent; border: none; font-size: 24px; cursor: pointer; color: #475569; padding: 0 5px; transition: transform 0.2s, color 0.2s; flex-shrink: 0; line-height: 1; }
-        .heart-btn:hover { transform: scale(1.2); }
-        .heart-btn.active { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+        /* Стили для кнопок (Сердечко и Звездочка) */
+        .action-btn { background: transparent; border: none; font-size: 20px; cursor: pointer; padding: 0 5px; transition: transform 0.2s, filter 0.2s; flex-shrink: 0; }
+        .action-btn:hover { transform: scale(1.2); }
+        .action-btn.active { filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2)); }
+        
+        .prev-btn { color: #475569; }
+        .prev-btn.active { color: #fbbf24; text-shadow: 0 0 10px rgba(251, 191, 36, 0.4); }
+        
+        .archive-badge { font-size: 10px; background: rgba(251, 191, 36, 0.15); color: #fbbf24; padding: 2px 6px; border-radius: 4px; margin-left: 8px; vertical-align: middle; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; display: none; }
+        .prev-btn.active ~ label .archive-badge { display: inline-block; }
     </style>
 </head>
 <body>
@@ -48,14 +60,24 @@
         <h1>Моя библиотека</h1>
         <div style="color: var(--text-muted); font-size: 14px;">Личный трекер чтения</div>
     </header>
+    
     <div class="progress-container">
         <div class="progress-text"><span>Ваш прогресс</span><span id="progress-numbers">0 / 0</span></div>
         <div class="progress-bar-bg"><div class="progress-bar-fill" id="progress-bar"></div></div>
     </div>
+
+    <!-- Легенда оценок -->
+    <div class="legend">
+        <span>💖 Очень</span>
+        <span>❤️ Средне</span>
+        <span>🧡 Мало</span>
+        <span>🖤 Не понравилась</span>
+    </div>
+
     <div id="categories"></div>
 </div>
 <script>
-    // Список книг: Категория | Автор | Название
+    // Список книг в защищенном текстовом формате (Категория | Автор | Название)
     const rawData = `
 🌟 Успеть до конца 2026|Джеймс Клир|Атомные привычки
 🌟 Успеть до конца 2026|Оливер Беркман|Четыре тысячи недель
@@ -294,4 +316,203 @@
 👨‍👩‍👧‍👦 Семейные саги|Гузель Яхина|Дети мои
 👨‍👩‍👧‍👦 Семейные саги|Марина Степнова|Женщины Лазаря
 👨‍👩‍👧‍👦 Семейные саги|Марина Степнова|Сад
-👨‍👩‍👧‍👦
+👨‍👩‍👧‍👦 Семейные саги|Фредерик Бакман|Медвежий угол
+👨‍👩‍👧‍👦 Семейные саги|Фредерик Бакман|Мы против вас
+👨‍👩‍👧‍👦 Семейные саги|Фредерик Бакман|После бури
+👨‍👩‍👧‍👦 Семейные саги|Ана Бессерра|Музыка любви
+👨‍👩‍👧‍👦 Семейные саги|Халед Хоссейни|И эхо летит по горам
+👨‍👩‍👧‍👦 Семейные саги|Люсинда Райли|Серия '7 сестер'
+👨‍👩‍👧‍👦 Семейные саги|Авраам Вергезе|Рассечение Стоуна
+👨‍👩‍👧‍👦 Семейные саги|Авраам Вергезе|Завет воды
+👨‍👩‍👧‍👦 Семейные саги|Ирина Головкина|Лебединая песнь
+👨‍👩‍👧‍👦 Семейные саги|Ирина Головкина|Побежденные
+💔 Трудные времена|Борис Васильев|А зори здесь тихие
+💔 Трудные времена|Михаил Шолохов|Тихий Дон
+💔 Трудные времена|Михаил Шолохов|Судьба человека
+💔 Трудные времена|Юлиан Семенов|Семнадцать мгновений весны
+💔 Трудные времена|Алексей Толстой|Хождение по мукам
+💔 Трудные времена|Константин Симонов|Живые и мёртвые
+💔 Трудные времена|Айн Рэнд|Мы живые
+💔 Трудные времена|Сергей Довлатов|Зона
+💔 Трудные времена|Анатолий Кузнецов|Бабий Яр
+💔 Трудные времена|Евгения Гинзбург|Крутой маршрут
+💔 Трудные времена|Ромен Гари|Обещание на рассвете
+💔 Трудные времена|Тамара Петкевич|Жизнь — сапожок непарный
+💔 Трудные времена|Юрий Трифонов|Дом на набережной
+💔 Трудные времена|Ханья Янагихара|Маленькая жизнь
+🔮 Странные, чудные, особенные|Герман Гессе|Паломничество в Страну Востока
+🔮 Странные, чудные, особенные|Борис Виан|Пена дней
+🔮 Странные, чудные, особенные|Конкордия Антарова|Две жизни
+🔮 Странные, чудные, особенные|Ричард Бах|Мост через вечность
+🔮 Странные, чудные, особенные|Татьяна Мастрюкова|Болотница
+🔮 Странные, чудные, особенные|Диана Сеттерфилд|Тринадцатая сказка
+🔮 Странные, чудные, особенные|Карлос Руис Сафон|Игра ангела
+🔮 Странные, чудные, особенные|Карлос Руис Сафон|Лабиринт призраков
+🔮 Странные, чудные, особенные|Карлос Руис Сафон|Тень ветра
+🔮 Странные, чудные, особенные|Карлос Руис Сафон|Узник неба
+🔮 Странные, чудные, особенные|Мариам Петросян|Дом, в котором...
+🔮 Странные, чудные, особенные|Умберто Эко|Маятник Фуко
+🔮 Странные, чудные, особенные|Мэтт Хейг|Полночная библиотека
+🔮 Странные, чудные, особенные|Мари Корелли|Скорбь Сатаны
+🌏 Истории Востока и современная проза|Харуки Мураками|1Q84
+🌏 Истории Востока и современная проза|Харуки Мураками|Норвежский лес
+🌏 Истории Востока и современная проза|Орхан Памук|Имя мне Красный
+🌏 Истории Востока и современная проза|Халед Хоссейни|Бегущий за ветром
+🌏 Истории Востока и современная проза|Халед Хоссейни|Тысяча сияющих солнц
+🌏 Истории Востока и современная проза|Юэжань Чжан|Кокон
+🌏 Истории Востока и современная проза|Амитав Гош|Ибисная трилогия
+🌏 Истории Востока и современная проза|Анна Старобинец|Лисьи броды
+🌏 Истории Востока и современная проза|Рёко Секигути|Тоска по уходящему сезону
+🌏 Истории Востока и современная проза|Уинстон Грум|Форрест Гамп
+🎭 Драматургия и поэзия|Александр Пушкин|Евгений Онегин
+🎭 Драматургия и поэзия|Александр Пушкин|Руслан и Людмила
+🎭 Драматургия и поэзия|Александр Пушкин|Медный всадник
+🎭 Драматургия и поэзия|Александр Пушкин|Борис Годунов
+🎭 Драматургия и поэзия|Александр Пушкин|Сказка о попе и о работнике его Балде
+🎭 Драматургия и поэзия|Александр Пушкин|Сказка о золотом петушке
+🎭 Драматургия и поэзия|Александр Пушкин|Сказка о мёртвой царевне и о семи богатырях
+🎭 Драматургия и поэзия|Александр Пушкин|Цыганы
+🎭 Драматургия и поэзия|Александр Пушкин|Полтава
+🎭 Драматургия и поэзия|Николай Гоголь|Ревизор
+🎭 Драматургия и поэзия|Александр Грибоедов|Горе от ума
+🎭 Драматургия и поэзия|Антон Чехов|Дядя Ваня
+🎭 Драматургия и поэзия|Антон Чехов|Чайка
+🎭 Драматургия и поэзия|Антон Чехов|Три сестры
+🎭 Драматургия и поэзия|Александр Островский|Бесприданница
+🎭 Драматургия и поэзия|Александр Островский|Поздняя любовь
+🎭 Драматургия и поэзия|Александр Островский|Женитьба Бальзаминова
+🎭 Драматургия и поэзия|Михаил Булгаков|Бег
+🎭 Драматургия и поэзия|Леонид Филатов|Про Федота-стрельца, удалого молодца
+🎭 Драматургия и поэзия|Денис Фонвизин|Недоросль
+🎭 Драматургия и поэзия|Михаил Лермонтов|Стихотворения
+🎭 Драматургия и поэзия|Михаил Лермонтов|Демон
+🎭 Драматургия и поэзия|Михаил Лермонтов|Кавказский пленник
+🎭 Драматургия и поэзия|Николай Некрасов|Стихотворения
+🎭 Драматургия и поэзия|Николай Некрасов|Мороз, Красный нос
+🎭 Драматургия и поэзия|Николай Некрасов|Русские женщины
+🎭 Драматургия и поэзия|Владимир Маяковский|Стихотворения
+🎭 Драматургия и поэзия|Борис Пастернак|Стихотворения
+🎭 Драматургия и поэзия|Уильям Шекспир|Сонеты и стихи
+🎭 Драматургия и поэзия|Уильям Шекспир|Укрощение строптивой
+🎭 Драматургия и поэзия|Уильям Шекспир|Сон в летнюю ночь
+🎭 Драматургия и поэзия|Уильям Шекспир|Двенадцатая ночь, или Что угодно
+🎭 Драматургия и поэзия|Мольер|Мещанин во дворянстве
+🎭 Драматургия и поэзия|Оскар Уайльд|Саломея
+🎭 Драматургия и поэзия|Джордж Гордон Байрон|Дон Жуан
+🧸 Тоска по детству|Вениамин Каверин|Два капитана
+🧸 Тоска по детству|Григорий Белых, Л. Пантелеев|Республика ШКИД
+🧸 Тоска по детству|Джером Дэвид Сэлинджер|Над пропастью во ржи
+🧸 Тоска по детству|Мария Семёнова|Бусый волк
+🧸 Тоска по детству|Рэй Брэдбери|Вино из одуванчиков
+    `;
+
+    const libraryData = {};
+    rawData.trim().split('\n').forEach(line => {
+        const parts = line.split('|');
+        if (parts.length === 3) {
+            const cat = parts[0].trim();
+            const author = parts[1].trim();
+            const title = parts[2].trim();
+            if (!libraryData[cat]) libraryData[cat] = [];
+            libraryData[cat].push([author, title]);
+        }
+    });
+
+    let totalBooks = 0;
+    let readBooks = 0;
+    const container = document.getElementById('categories');
+
+    for (const cat in libraryData) { totalBooks += libraryData[cat].length; }
+
+    function updateProgress() {
+        document.getElementById('progress-numbers').innerText = `${readBooks} / ${totalBooks}`;
+        const percent = (readBooks / totalBooks) * 100;
+        document.getElementById('progress-bar').style.width = `${percent}%`;
+    }
+
+    // Массив оценок (0 - пусто, 1 - очень, 2 - средне, 3 - мало, 4 - не понравилась)
+    const ratingIcons = ['🤍', '💖', '❤️', '🧡', '🖤'];
+
+    for (const category in libraryData) {
+        const details = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.textContent = `${category} (${libraryData[category].length})`;
+        details.appendChild(summary);
+
+        const list = document.createElement('div');
+        list.className = 'book-list';
+
+        libraryData[category].forEach(book => {
+            const author = book[0];
+            const title = book[1];
+            const id = encodeURIComponent(author + "___" + title);
+
+            const item = document.createElement('div');
+            item.className = 'book-item';
+
+            // Чекбокс прочитанного
+            const cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.id = `cb_${id}`;
+            
+            if (localStorage.getItem(`read_${id}`) === 'true') {
+                cb.checked = true;
+                readBooks++;
+            }
+
+            cb.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    readBooks++;
+                    localStorage.setItem(`read_${id}`, 'true');
+                } else {
+                    readBooks--;
+                    localStorage.setItem(`read_${id}`, 'false');
+                }
+                updateProgress();
+            });
+
+            // Кнопка оценки (сердечко)
+            const ratingBtn = document.createElement('button');
+            ratingBtn.className = 'action-btn';
+            let currentRating = parseInt(localStorage.getItem(`rating_${id}`)) || 0;
+            ratingBtn.innerHTML = ratingIcons[currentRating];
+            
+            ratingBtn.addEventListener('click', () => {
+                currentRating = (currentRating + 1) % ratingIcons.length;
+                ratingBtn.innerHTML = ratingIcons[currentRating];
+                localStorage.setItem(`rating_${id}`, currentRating);
+            });
+
+            // Кнопка "Читала ранее" (звездочка)
+            const prevBtn = document.createElement('button');
+            prevBtn.className = 'action-btn prev-btn';
+            prevBtn.innerHTML = '⭐';
+            
+            if (localStorage.getItem(`prev_${id}`) === 'true') {
+                prevBtn.classList.add('active');
+            }
+
+            prevBtn.addEventListener('click', () => {
+                const isActive = prevBtn.classList.toggle('active');
+                localStorage.setItem(`prev_${id}`, isActive);
+            });
+
+            const label = document.createElement('label');
+            label.htmlFor = cb.id;
+            label.innerHTML = `<span class="author">${author}</span> — ${title} <span class="archive-badge">в архиве</span>`;
+
+            item.appendChild(cb);
+            item.appendChild(label);
+            item.appendChild(ratingBtn); // Добавляем сердечко
+            item.appendChild(prevBtn);   // Добавляем звездочку
+            list.appendChild(item);
+        });
+
+        details.appendChild(list);
+        container.appendChild(details);
+    }
+
+    updateProgress();
+</script>
+</body>
+</html>
